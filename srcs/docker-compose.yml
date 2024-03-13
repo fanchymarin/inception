@@ -1,1 +1,14 @@
-docker run -it debian:bullseye
+services:
+  nginx:
+    image: inception-nginx:latest
+    build: requirements/nginx
+    ports:
+      - "443:443"
+      - "9000:9000"
+    networks:
+      - docker-network
+    env_file:
+      - .env
+
+networks:
+  docker-network:

@@ -1,15 +1,17 @@
 FROM    debian:bullseye
 
 RUN     apt update; \
-        apt install -y nginx systemctl; \
-        apt clean; \
-        mkdir webpage;
+        apt install -y nginx openssl; \
+        apt clean
 
-COPY    conf/nginx.conf /etc/nginx/
-COPY    conf/mysite.conf /etc/nginx/sites-available/
-COPY    conf/index.html /webpage
+RUN     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+        -keyout ${SSL_KEY} \
+        -out ${SSL_CERT} \
+        -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=localhost"
 
-RUN     ln -s /etc/nginx/sites-available/mysite.conf /etc/nginx/sites-enabled/; \
-        mv /etc/nginx/sites-enabled/default /etc/nginx/sites-enabled/.default;
-        
-CMD     ["systemctl", "start", "nginx"]
+COPY    conf/index.html ${NGINX_WEB_FOLDER}
+COPY    conf/nginx.conf ${NGINX_CONF}
+
+EXPOSE  443
+      
+CMD     ["nginx", "-g", "daemon off;"]
