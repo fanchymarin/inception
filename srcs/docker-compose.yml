@@ -1,14 +1,21 @@
 services:
   nginx:
     image: inception-nginx:latest
-    build: requirements/nginx
+    build:
+      context: requirements/nginx
     ports:
       - "443:443"
       - "9000:9000"
     networks:
-      - docker-network
-    env_file:
-      - .env
+      - inception
+    secrets:
+      - DOMAIN_NAME
+    
 
 networks:
-  docker-network:
+  inception:
+    name: inception
+
+secrets:
+  DOMAIN_NAME:
+      environment: "DOMAIN_NAME"

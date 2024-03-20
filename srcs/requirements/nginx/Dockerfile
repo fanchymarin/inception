@@ -1,16 +1,18 @@
 FROM    debian:bullseye
 
+ARG     DOMAIN_NAME
+
 RUN     apt update; \
         apt install -y nginx openssl; \
         apt clean
 
-RUN     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-        -keyout ${SSL_KEY} \
-        -out ${SSL_CERT} \
-        -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=localhost"
+COPY    conf/index.html /usr/share/nginx/html
+COPY    conf/nginx.conf /etc/nginx/nginx.conf
 
-COPY    conf/index.html ${NGINX_WEB_FOLDER}
-COPY    conf/nginx.conf ${NGINX_CONF}
+RUN     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+        -keyout /etc/ssl/private/nginx-selfsigned.key \
+        -out /etc/ssl/certs/nginx-selfsigned.crt \
+        -subj "/C=MO/L=KH/O=1337/OU=student/CN=${DOMAIN_NAME}"
 
 EXPOSE  443
       
