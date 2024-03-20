@@ -3,19 +3,15 @@ services:
     image: inception-nginx:latest
     build:
       context: requirements/nginx
+      args:
+        DOMAIN_NAME: ${DOMAIN_NAME}
     ports:
       - "443:443"
       - "9000:9000"
     networks:
       - inception
-    secrets:
-      - DOMAIN_NAME
+    env_file: .env
     
-
 networks:
   inception:
     name: inception
-
-secrets:
-  DOMAIN_NAME:
-      environment: "DOMAIN_NAME"

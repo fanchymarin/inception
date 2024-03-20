@@ -1,14 +1,27 @@
 NAME = inception
 SRCDIR = srcs
+DOCKER = docker compose --project-directory $(SRCDIR) -p $(NAME)
+IMAGES = $(shell docker images --filter=reference="$(NAME)-*" -q)
+
+ifeq (shell, $(firstword $(MAKECMDGOALS)))
+  CONTAINER := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  $(eval $(CONTAINER):;@:)
+endif
 
 all:
-	docker compose --project-directory $(SRCDIR) -p $(NAME) up -d
+	$(DOCKER) up -d
 
 clean:
-	docker compose --project-directory $(SRCDIR) -p $(NAME) down
+	$(DOCKER) down
+
+logs:
+	$(DOCKER) logs
+
+shell:
+	docker exec -it inception-$(CONTAINER)-1 /bin/bash
 
 fclean: clean
-	docker rmi $(shell docker images --filter=reference="$(NAME)-*" -q)
+	docker rmi $(IMAGES)
 
 re: fclean all
 
