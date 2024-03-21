@@ -18,7 +18,7 @@ logs:
 	$(DOCKER) logs
 
 shell:
-	docker exec -it inception-$(CONTAINER)-1 /bin/bash
+	docker exec -it $(CONTAINER) /bin/bash
 
 fclean: clean
 	docker rmi $(IMAGES)

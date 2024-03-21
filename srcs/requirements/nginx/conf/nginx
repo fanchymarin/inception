@@ -1,0 +1,17 @@
+server {
+	listen 443 ssl;
+	
+	server_name www.fmarin-p.42.es fmarin-p.42.es;
+
+	ssl_protocols TLSv1.3;
+	ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+	ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+
+	location / {
+		root /usr/share/nginx/html;
+		index index.html;
+	}
+	location /favicon.ico {
+		log_not_found off;
+	}
+}
