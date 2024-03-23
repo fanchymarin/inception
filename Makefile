@@ -26,3 +26,5 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+# EDITAR ETC/HOSTS DE VM EN 42
