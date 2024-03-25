@@ -1,7 +1,7 @@
 services:
   nginx:
     container_name: nginx
-    image: inception-nginx:latest
+    image: inception-nginx
     build:
       context: requirements/nginx
       args:
@@ -15,11 +15,19 @@ services:
     restart: always
   wordpress:
     container_name: wordpress
-    image: inception-wordpress:latest
+    image: inception-wordpress
     build:
       context: requirements/wordpress
       args:
         DOMAIN_NAME: ${DOMAIN_NAME}
+        WP_NAME: ${WP_NAME}
+        WP_DATABASE: ${WP_DATABASE}
+        WP_USER: ${WP_USER}
+        WP_PASSWORD: ${WP_PASSWORD}
+        WP_EMAIL: ${WP_EMAIL}
+        WP_ADMIN_USER: ${WP_ADMIN_USER}
+        WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
+        WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
     ports:
       - "9000:9000"
       - "3306:3306"
@@ -31,3 +39,9 @@ services:
 networks:
   inception:
     name: inception
+
+
+
+# TO-DO LIST
+#   - Añadir DOMAIN_NAME a /etc/hosts de VM
+#   - Cambiar DB_HOST en wp-config de localhost a mariadb
