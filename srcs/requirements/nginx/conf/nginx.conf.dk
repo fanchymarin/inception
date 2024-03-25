@@ -1,7 +1,7 @@
 server {
 	listen 443 ssl;
 	
-	server_name www.fmarin-p.42.es fmarin-p.42.es;
+	server_name www.$DOMAIN_NAME $DOMAIN_NAME;
 
 	ssl_protocols TLSv1.3;
 	ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
