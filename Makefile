@@ -1,7 +1,6 @@
 NAME = inception
 SRCDIR = srcs
 DOCKER = docker compose --project-directory $(SRCDIR) -p $(NAME)
-IMAGES = $(shell docker images --filter=reference="$(NAME)-*" -q)
 
 ifeq (shell, $(firstword $(MAKECMDGOALS)))
   CONTAINER := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
@@ -21,7 +20,8 @@ shell:
 	docker exec -it $(CONTAINER) /bin/bash
 
 fclean: clean
-	docker rmi $(IMAGES)
+	docker rm -vf $(shell docker ps -aq)
+	docker rmi -f $(shell docker images -aq)
 
 re: fclean all
 
