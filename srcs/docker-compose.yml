@@ -9,11 +9,14 @@ services:
     ports:
       - "443:443"
     networks:
-      - inception
+      inception:
+        aliases:
+          - nginx
     env_file: .env
     restart: always
   wordpress:
     container_name: wordpress
+    hostname: wordpress
     image: inception-wordpress
     build:
       context: requirements/wordpress
@@ -28,7 +31,26 @@ services:
         WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
         WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
     networks:
-      - inception
+      inception:
+        aliases:
+          - wordpress
+    env_file: .env
+    restart: always
+  mariadb:
+    container_name: mariadb
+    hostname: mariadb
+    image: mariadb-wordpress
+    build:
+      context: requirements/mariadb
+      args:
+        WP_DATABASE: ${WP_DATABASE}
+        WP_USER: ${WP_USER}
+        WP_PASSWORD: ${WP_PASSWORD}
+        WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
+    networks:
+      inception:
+        aliases:
+          - mariadb
     env_file: .env
     restart: always
     
