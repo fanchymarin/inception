@@ -40,4 +40,3 @@ networks:
 
 # TO-DO LIST
 #   - Añadir DOMAIN_NAME a /etc/hosts de VM
-#   - Cambiar DB_HOST en wp-config de localhost a mariadb

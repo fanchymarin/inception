@@ -2,15 +2,12 @@ FROM    debian:bullseye
 
 ARG     DOMAIN_NAME
 
-COPY    conf/nginx.conf.dk /
+COPY    conf/nginx.conf /nginx.conf
 
 RUN        apt update \
-        && apt install -y nginx openssl gettext \
+        && apt install -y nginx openssl \
         && apt clean \
-        && export DOMAIN_NAME=${DOMAIN_NAME} \
-        && envsubst < /nginx.conf.dk \
-           > /etc/nginx/sites-available/default \
-        && rm /nginx.conf.dk \ 
+        && sed -i "s/DOMAIN_NAME/$DOMAIN_NAME/g" nginx.conf \
         && openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
            -keyout /etc/ssl/private/nginx-selfsigned.key \
            -out /etc/ssl/certs/nginx-selfsigned.crt \

@@ -7,10 +7,10 @@ ifeq (shell, $(firstword $(MAKECMDGOALS)))
   $(eval $(CONTAINER):;@:)
 endif
 
-all:
+up:
 	$(DOCKER) up -d
 
-clean:
+down:
 	$(DOCKER) down
 
 logs:
@@ -19,12 +19,12 @@ logs:
 shell:
 	docker exec -it $(CONTAINER) /bin/bash
 
-fclean: clean
+fclean: down
 	docker rm -vf $(shell docker ps -aq)
 	docker rmi -f $(shell docker images -aq)
 
-re: fclean all
+re: fclean up
 
-.PHONY: all clean fclean re
+.PHONY: up clean fclean re
 
 # EDITAR ETC/HOSTS DE VM EN 42
