@@ -24,6 +24,7 @@ shell:
 clean: down
 	docker rm -vf $(shell docker ps -aq)
 	docker rmi -f $(shell docker images -aq)
+	docker volume rm $(shell docker volume ls -q)
 
 fclean: clean
 	docker system prune -af
@@ -31,11 +32,11 @@ fclean: clean
 	rm -rf ${HOME}/data
 
 setup:
-	sudo sed -i.backup 's/localhost.*/localhost www.${DOMAIN_NAME} ${DOMAIN_NAME}/g' /etc/hosts
 	mkdir -p ${HOME}/data
 	mkdir -p ${HOME}/data/mariadb
 	mkdir -p ${HOME}/data/wordpress
 	mkdir -p ${HOME}/data/socket
+	sudo sed -i.backup 's/localhost.*/localhost www.${DOMAIN_NAME} ${DOMAIN_NAME}/g' /etc/hosts
 
 re: fclean setup up
 
