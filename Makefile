@@ -35,6 +35,7 @@ setup:
 	mkdir -p ${HOME}/data
 	mkdir -p ${HOME}/data/mariadb
 	mkdir -p ${HOME}/data/wordpress
+	mkdir -p ${HOME}/data/socket
 
 re: fclean setup up
 

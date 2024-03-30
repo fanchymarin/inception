@@ -1,5 +1,10 @@
 # QUITAR .ENV DE REPO
 
+networks:
+  inception:
+    name: inception
+
+
 volumes:
   wordpress:
     name: wordpress
@@ -15,6 +20,14 @@ volumes:
       device: ${HOME}/data/mariadb
       o: bind
       type: none
+  socket:
+    name: socket
+    driver: local
+    driver_opts:
+      device: ${HOME}/data/socket
+      o: bind
+      type: none
+
 
 services:
   nginx:
@@ -36,6 +49,7 @@ services:
     restart: always
     depends_on:
       - wordpress
+  
   wordpress:
     container_name: wordpress
     hostname: wordpress
@@ -55,6 +69,7 @@ services:
     volumes:
       - wordpress:/var/www/html
       - mariadb:/var/lib/mysql
+      - socket:/var/run/redis
     networks:
       inception:
         aliases:
@@ -63,6 +78,22 @@ services:
     restart: always
     depends_on:
       - mariadb
+      - redis
+
+  redis:
+    container_name: redis
+    image: inception-redis
+    build:
+      context: requirements/redis
+    volumes:
+    - socket:/var/run/redis
+    networks:
+      inception:
+        aliases:
+          - redis
+    env_file: .env
+    restart: always
+
   mariadb:
     container_name: mariadb
     hostname: mariadb
@@ -82,7 +113,3 @@ services:
           - mariadb
     env_file: .env
     restart: always
-    
-networks:
-  inception:
-    name: inception
