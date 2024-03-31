@@ -16,7 +16,7 @@ COPY     conf/wp-config.php /
 COPY     conf/wp-init.sh /
 
 RUN      apt update \
-      && apt upgrade \ 
+      && apt upgrade -y \ 
       && apt install php-fpm php-mysql curl -y \
       && mkdir -p /var/run/redis/ \
       && chmod 777 /var/run/redis/ \

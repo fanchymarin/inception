@@ -5,6 +5,7 @@ ARG     DOMAIN_NAME
 COPY    conf/nginx.conf /default
 
 RUN        apt update \
+        && apt upgrade -y \ 
         && apt install nginx openssl -y\
         && apt clean \
         && mv -f /default /etc/nginx/sites-available/ \

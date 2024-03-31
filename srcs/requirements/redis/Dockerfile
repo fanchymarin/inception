@@ -1,7 +1,7 @@
 FROM    debian:bullseye
 
 RUN      apt update \
-      && apt upgrade \ 
+      && apt upgrade -y \ 
       && apt install redis -y \
       && echo "unixsocket /var/run/redis/redis.sock" > /etc/redis/redis.conf \
       && echo "unixsocketperm 777" >> /etc/redis/redis.conf \

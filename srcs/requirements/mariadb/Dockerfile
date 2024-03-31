@@ -6,7 +6,7 @@ ARG      WP_PASSWORD
 ARG      WP_ADMIN_PASSWORD
 
 RUN      apt update \
-      && apt upgrade \ 
+      && apt upgrade -y \ 
       && apt install mariadb-server -y \
       && sed -i 's/127.0.0.1/0.0.0.0/1' /etc/mysql/mariadb.conf.d/50-server.cnf \
       && service mariadb start \
