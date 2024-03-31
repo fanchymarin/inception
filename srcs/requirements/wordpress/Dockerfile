@@ -28,8 +28,6 @@ RUN      apt update \
       && sed -i "s/\$WP_DATABASE/$WP_DATABASE/g" /wp-config.php \
       && sed -i "s/\$WP_USER/$WP_USER/g" /wp-config.php \
       && sed -i "s/\$WP_PASSWORD/$WP_PASSWORD/g" /wp-config.php \
-      && echo "\ndefine( 'WP_REDIS_PATH', '/var/run/redis/redis.sock' );" >> /wp-config.php \
-      && echo "define( 'WP_REDIS_SCHEME', 'unix' );" >> /wp-config.php \
       && chmod -x /wp-init.sh
 
 ENTRYPOINT ["/bin/bash", "/wp-init.sh"]
