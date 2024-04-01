@@ -113,3 +113,26 @@ services:
           - mariadb
     env_file: .env
     restart: always
+
+  ftp:
+    container_name: ftp
+    image: inception-ftp
+    build:
+      context: requirements/ftp
+      args:
+        FTP_USER: ${FTP_USER}
+        FTP_PASSWORD: ${FTP_PASSWORD}
+    volumes:
+      - wordpress:/home/${FTP_USER}/ftp/files
+    ports:
+      - "20:20"
+      - "21:21"
+      - "40000-40005:40000-40005"
+    networks:
+      inception:
+        aliases:
+          - ftp
+    env_file: .env
+    restart: always
+    depends_on:
+      - wordpress

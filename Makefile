@@ -15,7 +15,7 @@ up:
 down:
 	$(DOCKER) down
 
-logs:
+log:
 	$(DOCKER) logs -f
 
 shell:
