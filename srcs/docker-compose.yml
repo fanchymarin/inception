@@ -1,5 +1,3 @@
-# QUITAR .ENV DE REPO
-
 networks:
   inception:
     name: inception
