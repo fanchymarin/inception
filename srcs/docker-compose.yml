@@ -78,7 +78,6 @@ services:
     restart: always
     depends_on:
       - mariadb
-      - redis
 
   redis:
     container_name: redis
@@ -93,6 +92,8 @@ services:
           - redis
     env_file: .env
     restart: always
+    depends_on:
+      - wordpress
 
   mariadb:
     container_name: mariadb

@@ -9,6 +9,8 @@ ifeq (shell, $(firstword $(MAKECMDGOALS)))
   $(eval $(CONTAINER):;@:)
 endif
 
+all: setup up
+
 up:
 	$(DOCKER) up -d --build
 
@@ -38,6 +40,6 @@ setup:
 	mkdir -p ${HOME}/data/socket
 	sudo sed -i.backup 's/localhost.*/localhost www.${DOMAIN_NAME} ${DOMAIN_NAME}/g' /etc/hosts
 
-re: fclean setup up
+re: fclean all
 
 .PHONY: up clean fclean re
