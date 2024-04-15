@@ -30,7 +30,7 @@ clean: down
 fclean: clean
 	docker system prune -af
 	sudo sed -i.backup 's/localhost.*/localhost/g' /etc/hosts
-	rm -rf ${HOME}/data
+	sudo rm -rf ${HOME}/data
 
 setup:
 	mkdir -p ${HOME}/data
