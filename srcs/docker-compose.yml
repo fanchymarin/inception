@@ -113,6 +113,22 @@ services:
     env_file: .env
     restart: always
 
+  adminer:
+    container_name: adminer
+    image: inception-adminer
+    build:
+      context: requirements/adminer
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      inception:
+        aliases:
+          - adminer
+    env_file: .env
+    restart: always
+    depends_on:
+      - mariadb
+
   ftp:
     container_name: ftp
     image: inception-ftp
