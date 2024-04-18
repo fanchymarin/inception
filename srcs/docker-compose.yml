@@ -73,20 +73,6 @@ services:
     depends_on:
       - mariadb
 
-  redis:
-    container_name: redis
-    image: inception-redis
-    build:
-      context: requirements/redis
-    volumes:
-    - socket:/var/run/redis
-    networks:
-      - inception
-    env_file: .env
-    restart: always
-    depends_on:
-      - wordpress
-
   mariadb:
     container_name: mariadb
     hostname: mariadb
@@ -109,7 +95,7 @@ services:
     container_name: adminer
     image: inception-adminer
     build:
-      context: requirements/adminer
+      context: requirements/bonus/adminer
     ports:
       - "8080:8080"
     networks:
@@ -123,7 +109,7 @@ services:
     container_name: ftp
     image: inception-ftp
     build:
-      context: requirements/ftp
+      context: requirements/bonus/ftp
       args:
         FTP_USER: ${FTP_USER}
         FTP_PASSWORD: ${FTP_PASSWORD}
@@ -133,6 +119,20 @@ services:
       - "20:20"
       - "21:21"
       - "40000-40005:40000-40005"
+    networks:
+      - inception
+    env_file: .env
+    restart: always
+    depends_on:
+      - wordpress
+
+  redis:
+    container_name: redis
+    image: inception-redis
+    build:
+      context: requirements/bonus/redis
+    volumes:
+    - socket:/var/run/redis
     networks:
       - inception
     env_file: .env
