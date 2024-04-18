@@ -1,3 +1,11 @@
+
+##########################
+## wordpress:   80, 443 ##
+## ftp_server:  20, 21  ##
+## adminer:     8080    ##
+####### HOST PORT ########
+
+
 networks:
   inception:
     name: inception
@@ -139,3 +147,15 @@ services:
     restart: always
     depends_on:
       - wordpress
+
+  website:
+    container_name: website
+    image: inception-website
+    build:
+      context: requirements/bonus/website
+    ports:
+      - "600:80"
+    networks:
+      - inception
+    env_file: .env
+    restart: always

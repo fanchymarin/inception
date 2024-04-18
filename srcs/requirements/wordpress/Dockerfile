@@ -14,7 +14,6 @@ ARG      WP_ADMIN_EMAIL
 
 COPY     conf/wp-config.php /
 COPY     conf/wp-init.sh /
-COPY     conf/resume.html /
 
 RUN      apt update \
       && apt upgrade -y \ 
