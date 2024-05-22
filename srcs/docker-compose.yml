@@ -1,9 +1,12 @@
 
-##########################
-## wordpress:   80, 443 ##
-## ftp_server:  20, 21  ##
-## adminer:     8080    ##
-####### HOST PORT ########
+############################
+##                        ##
+##  wordpress:   80, 443  ##
+##  ftp_server:  20, 21   ##
+##  adminer:     8080     ##
+##  website:     600      ##
+##                        ##
+##### PORTS CHEATSHEET #####
 
 
 networks:
