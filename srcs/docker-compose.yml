@@ -41,7 +41,7 @@ volumes:
 services:
   nginx:
     container_name: nginx
-    image: inception-nginx
+    image: nginx
     build:
       context: requirements/nginx
       args:
@@ -59,8 +59,7 @@ services:
   
   wordpress:
     container_name: wordpress
-    hostname: wordpress
-    image: inception-wordpress
+    image: wordpress
     build:
       context: requirements/wordpress
       args:
@@ -104,7 +103,7 @@ services:
 
   adminer:
     container_name: adminer
-    image: inception-adminer
+    image: adminer
     build:
       context: requirements/bonus/adminer
     ports:
@@ -118,7 +117,7 @@ services:
 
   ftp:
     container_name: ftp
-    image: inception-ftp
+    image: ftp
     build:
       context: requirements/bonus/ftp
       args:
@@ -139,7 +138,7 @@ services:
 
   redis:
     container_name: redis
-    image: inception-redis
+    image: redis
     build:
       context: requirements/bonus/redis
     volumes:
@@ -153,7 +152,7 @@ services:
 
   website:
     container_name: website
-    image: inception-website
+    image: website
     build:
       context: requirements/bonus/website
     ports:

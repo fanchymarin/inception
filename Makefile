@@ -16,6 +16,10 @@ endif
 
 all: setup up
 
+reset: down up
+
+re: fclean all
+
 up:
 	@$(DOCKER) up -d --build
 	@echo "$(COLOUR_GREEN)[docker containers up and running]$(END_COLOUR)"
@@ -52,7 +56,5 @@ setup:
 	@echo "$(COLOUR_BLUE)[sudo password required]$(END_COLOUR)"
 	@sudo sed -i.backup 's/localhost.*/localhost www.${DOMAIN_NAME} ${DOMAIN_NAME}/g' /etc/hosts
 	@echo "$(COLOUR_GREEN)[domain name included in /etc/hosts]$(END_COLOUR)"
-
-re: fclean all
 
 .PHONY: up clean fclean re
