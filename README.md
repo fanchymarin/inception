@@ -1,9 +1,4 @@
-# inception - ✅Grade 121/100
-
-#### Grade rating
-
-- ✅ = Okay project
-- ⭐ = Outstanding project
+# inception
 
 ## Table of Contents
 
